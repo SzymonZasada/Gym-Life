@@ -1,3 +1,5 @@
+# Application under development!
+
 # About app
 
 The application will be used to manage, monitor and help people training at the gym. It will combine many
