@@ -1,20 +1,10 @@
-<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
-  <app-toolbar
-    (newSidenavEvent)="toggleSidebar($event)"
-    [isMobileView]="isButtonActive()"></app-toolbar>
+<div *ngIf="userIsLogged(); else userIsNotLogged" class="main-container" [class.is-mobile]="mobileQuery.matches">
+  <app-toolbar (newSidenavEvent)="toggleSidebar($event)" [isMobileView]="isButtonActive()"></app-toolbar>
 
-  <mat-sidenav-container class="example-sidenav-container">
-    <mat-sidenav
-      #nav
-      [mode]="mobileQuery.matches ? 'over' : 'side'"
-      [opened]="!mobileQuery.matches">
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #nav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches">
       <mat-nav-list>
-        <a
-          *ngFor="let nav of fillerNav"
-          mat-list-item
-          [routerLink]="nav.navigation"
-          >{{ nav.title }}</a
-        >
+        <a *ngFor="let nav of fillerNav" mat-list-item [routerLink]="nav.navigation">{{ nav.title }}</a>
       </mat-nav-list>
     </mat-sidenav>
 
@@ -23,3 +13,5 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+
+<ng-template #userIsNotLogged> Here is Login</ng-template>

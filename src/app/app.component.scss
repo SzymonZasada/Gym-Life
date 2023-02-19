@@ -1,4 +1,4 @@
-.example-container {
+.main-container {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -8,20 +8,16 @@
   right: 0;
 }
 
-.example-is-mobile .example-toolbar {
+.is-mobile .example-toolbar {
   position: fixed;
   z-index: 2;
 }
 
-h1.example-app-name {
-  margin-left: 8px;
-}
-
-.example-sidenav-container {
+.sidenav-container {
   flex: 1;
 }
 
-.example-is-mobile .example-sidenav-container {
+.is-mobile .sidenav-container {
   flex: 1 0 auto;
 }
 

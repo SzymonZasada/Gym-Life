@@ -1,8 +1,8 @@
 <mat-toolbar>
   <button
+    [ngStyle]="!isMobileView ? { display: 'none' } : { display: 'flex' }"
     (click)="toggleSidenav()"
     mat-icon-button
-    class="example-icon"
     [disabled]="!isMobileView">
     <mat-icon>menu</mat-icon>
   </button>

@@ -11,7 +11,7 @@ export class ToolbarComponent {
 
   constructor() {}
 
-  toggleSidenav() {
+  toggleSidenav(): void {
     this.newSidenavEvent.emit(null);
   }
 }

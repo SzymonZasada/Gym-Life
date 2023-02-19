@@ -1,11 +1,7 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, ViewChild } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
+import { OauthService } from './helpers/auth/oauth.service';
 
 @Component({
   selector: 'app-root',
@@ -15,20 +11,28 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class AppComponent {
   @ViewChild('nav') nav: MatSidenav;
 
-  private readonly _mobileQueryListener: () => void;
-  mobileQuery: MediaQueryList;
+  private readonly mobileQueryListener: () => void;
+  public mobileQuery: MediaQueryList;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private mediaMatcher: MediaMatcher,
+    private oauthService: OauthService
+  ) {
+    this.mobileQuery = mediaMatcher.matchMedia('(max-width: 600px)');
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
   }
 
-  toggleSidebar(event: EventEmitter<null>) {
+  userIsLogged(): boolean {
+    return this.oauthService.isAuthenticated();
+  }
+
+  toggleSidebar(event: EventEmitter<null>): void {
     this.nav.toggle();
   }
 
-  isButtonActive() {
+  isButtonActive(): boolean {
     return this.mobileQuery.matches;
   }
 
