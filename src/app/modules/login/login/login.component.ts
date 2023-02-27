@@ -10,7 +10,7 @@ import { ActiveContentEnum } from '../../../models/enums/login-module-enums/logi
 export class LoginComponent implements OnInit {
   public ActiveContentEnum: typeof ActiveContentEnum = ActiveContentEnum;
 
-  public showContent: ActiveContentEnum = ActiveContentEnum.LOGIN;
+  public showContent: ActiveContentEnum = ActiveContentEnum.SIGNUP;
 
   constructor(private detect: ChangeDetectorRef) {}
 
@@ -19,5 +19,11 @@ export class LoginComponent implements OnInit {
   activeContent(active: ActiveContentEnum) {
     this.showContent = active;
     this.detect.detectChanges();
+  }
+
+  isForgotPassword(data: boolean) {
+    if (data) {
+      this.activeContent(ActiveContentEnum.PASSWORD);
+    }
   }
 }

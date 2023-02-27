@@ -12,19 +12,23 @@
       <div class="welcome-screen">
         <div class="fit-word">
           <div class="primary header-welcome-size">GYM LIFE</div>
-          <div class="header-welcome-size">WELCOME</div>
+          <div class="header-welcome-size">
+            <ng-container *ngIf="showContent === ActiveContentEnum.LOGIN"> WELCOME</ng-container>
+            <ng-container *ngIf="showContent === ActiveContentEnum.SIGNUP"> REGISTER</ng-container>
+            <ng-container *ngIf="showContent === ActiveContentEnum.PASSWORD"> REMIND</ng-container>
+          </div>
         </div>
       </div>
 
       <div class="main-login-content">
         <ng-container *ngIf="showContent === ActiveContentEnum.LOGIN">
-          <app-login-user></app-login-user>
+          <app-login-user (isForgotPassword)="isForgotPassword($event)"></app-login-user>
         </ng-container>
         <ng-container *ngIf="showContent === ActiveContentEnum.SIGNUP">
           <app-register-user></app-register-user>
         </ng-container>
         <ng-container *ngIf="showContent === ActiveContentEnum.PASSWORD">
-          <app-password-change-user></app-password-change-user>
+          <app-password-remind-user></app-password-remind-user>
         </ng-container>
       </div>
     </mat-card-content>

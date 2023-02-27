@@ -1,5 +1,5 @@
-<div class="login-widget">
-  <div class="social-login">
+<div>
+  <div>
     <div class="social-login-header primary">Login with</div>
     <div class="social-buttons">
       <button class="social-button custom-background-color-button-global" mat-mini-fab matTooltip="disabled">
@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div [formGroup]="formLogin" class="login-form">
+  <div [formGroup]="formLogin">
     <mat-form-field color="primary" class="full-width">
       <mat-label>Login</mat-label>
       <input type="text" matInput [formControlName]="FormLoginEnum.LOGIN" placeholder="Login" required />

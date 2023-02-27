@@ -6,15 +6,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginUserComponent } from './login/login-user/login-user.component';
 import { RegisterUserComponent } from './login/register-user/register-user.component';
-import { PasswordChangeUserComponent } from './login/password-change-user/password-change-user.component';
 import { MatCardModule } from '@angular/material/card';
 import { LoginRoutingModule } from './login-routing.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PasswordRemindUserComponent } from './login/password-remind-user/password-remind-user.component';
 
 @NgModule({
-  declarations: [LoginComponent, LoginUserComponent, RegisterUserComponent, PasswordChangeUserComponent],
+  declarations: [LoginComponent, LoginUserComponent, RegisterUserComponent, PasswordRemindUserComponent],
   exports: [LoginComponent],
   imports: [
     CommonModule,

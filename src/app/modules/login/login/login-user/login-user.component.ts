@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormLoginEnum } from '../../../../models/enums/login-module-enums/login-enums';
 
@@ -9,6 +9,7 @@ import { FormLoginEnum } from '../../../../models/enums/login-module-enums/login
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginUserComponent implements OnInit {
+  @Output() isForgotPassword = new EventEmitter<boolean>();
   public FormLoginEnum: typeof FormLoginEnum = FormLoginEnum;
   public formLogin: FormGroup;
 
@@ -33,5 +34,7 @@ export class LoginUserComponent implements OnInit {
     console.log(reqObject);
   }
 
-  forgotPassword() {}
+  forgotPassword() {
+    this.isForgotPassword.emit(true);
+  }
 }

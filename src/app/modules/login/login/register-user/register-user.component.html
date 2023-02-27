@@ -1,1 +1,60 @@
-<p>register-user works!</p>
+<div>
+  <div [formGroup]="formRegister" class="register-form">
+    <mat-form-field color="primary" class="full-width">
+      <mat-label>Login</mat-label>
+      <input type="text" matInput [formControlName]="FormRegisterEnum.LOGIN" placeholder="Login" required />
+      <mat-error *ngIf="formRegister.get(FormRegisterEnum.LOGIN).hasError('required')"> Login is required</mat-error>
+      <mat-error
+        *ngIf="
+          formRegister.get(FormRegisterEnum.LOGIN).hasError('minlength') &&
+          !formRegister.get(FormRegisterEnum.LOGIN).hasError('required')
+        ">
+        Minimum length is 5 characters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="primary" class="full-width">
+      <mat-label>E-mail</mat-label>
+      <input type="email" matInput [formControlName]="FormRegisterEnum.EMAIL" placeholder="Email" required />
+      <mat-error *ngIf="formRegister.get(FormRegisterEnum.EMAIL).hasError('required')"> E-mail is required</mat-error>
+      <mat-error
+        *ngIf="
+          formRegister.get(FormRegisterEnum.EMAIL).hasError('email') &&
+          !formRegister.get(FormRegisterEnum.EMAIL).hasError('required')
+        ">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="primary" class="full-width">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput [formControlName]="FormRegisterEnum.PASSWORD" placeholder="Password" required />
+      <mat-error *ngIf="formRegister.get(FormRegisterEnum.PASSWORD).hasError('required')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="primary" class="full-width">
+      <mat-label>Repeat password</mat-label>
+      <input type="password" matInput [formControlName]="FormRegisterEnum.REPEAT" placeholder="Password" required />
+      <mat-error *ngIf="formRegister.get(FormRegisterEnum.REPEAT).hasError('required')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="register-button">
+    <button
+      [style.border-radius]="'20px'"
+      mat-raised-button
+      color="primary"
+      [disabled]="isFormValid()"
+      (click)="registerLogin()">
+      <span class="custom-icon-button-global">
+        <span class="custom-icon-button-name-global">Register</span>
+        <span class="custom-icon-button-flex-global">
+          <mat-icon class="custom-icon-button-icon-global">play_arrow</mat-icon>
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
