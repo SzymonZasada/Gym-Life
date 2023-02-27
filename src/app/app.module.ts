@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { LoginModule } from './modules/login/login.module';
 
 @NgModule({
   declarations: [AppComponent, ToolbarComponent],
@@ -21,6 +22,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatButtonModule,
     MatListModule,
     MatSidenavModule,
+    LoginModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

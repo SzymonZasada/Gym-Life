@@ -15,6 +15,7 @@
 
 .sidenav-container {
   flex: 1;
+  height: 100%;
 }
 
 .is-mobile .sidenav-container {
@@ -23,4 +24,8 @@
 
 .mat-drawer {
   width: 150px;
+}
+
+.height {
+  height: 100%;
 }

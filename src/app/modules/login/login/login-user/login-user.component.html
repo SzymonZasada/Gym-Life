@@ -1,0 +1,58 @@
+<div class="login-widget">
+  <div class="social-login">
+    <div class="social-login-header primary">Login with</div>
+    <div class="social-buttons">
+      <button class="social-button custom-background-color-button-global" mat-mini-fab matTooltip="disabled">
+        <mat-icon>facebook</mat-icon>
+      </button>
+
+      <button class="social-button custom-background-color-button-global" mat-mini-fab matTooltip="disabled">
+        <mat-icon>microsoft</mat-icon>
+      </button>
+
+      <button class="social-button custom-background-color-button-global" mat-mini-fab matTooltip="disabled">
+        <mat-icon>apple</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div [formGroup]="formLogin" class="login-form">
+    <mat-form-field color="primary" class="full-width">
+      <mat-label>Login</mat-label>
+      <input type="text" matInput [formControlName]="FormLoginEnum.LOGIN" placeholder="Login" required />
+      <mat-error *ngIf="formLogin.get(FormLoginEnum.LOGIN).hasError('required')"> Login is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="primary" class="full-width">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput [formControlName]="FormLoginEnum.PASSWORD" placeholder="Password" required />
+      <mat-error *ngIf="formLogin.get(FormLoginEnum.PASSWORD).hasError('required')"> Password is required</mat-error>
+    </mat-form-field>
+
+    <div>
+      <mat-checkbox
+        labelPosition="before"
+        class="remember-button"
+        color="primary"
+        [formControlName]="FormLoginEnum.REMEMBER">
+        <span class="primary">Remember me</span>
+      </mat-checkbox>
+      <button class="forgot-button" mat-button (click)="forgotPassword()">Forgot password</button>
+    </div>
+  </div>
+  <div class="login-button">
+    <button
+      [style.border-radius]="'20px'"
+      mat-raised-button
+      color="primary"
+      [disabled]="isFormValid()"
+      (click)="submitLogin()">
+      <span class="custom-icon-button-global">
+        <span class="custom-icon-button-name-global">Login</span>
+        <span class="custom-icon-button-flex-global">
+          <mat-icon class="custom-icon-button-icon-global">play_arrow</mat-icon>
+        </span>
+      </span>
+    </button>
+  </div>
+</div>

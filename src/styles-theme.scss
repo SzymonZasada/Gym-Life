@@ -1,17 +1,52 @@
 @use '@angular/material' as mat;
+@import '@angular/material/theming';
 
 @include mat.core();
 
-$dark-lime-primary: mat.define-palette(mat.$red-palette, 500);
-$dark-lime-accent: mat.define-palette(mat.$red-palette, A200, A100, A400);
+$dark-lime-primary: mat.define-palette(mat.$lime-palette, A400);
+$dark-lime-accent: mat.define-palette(mat.$grey-palette, 600);
 $dark-lime-warn: mat.define-palette(mat.$red-palette, A200, A100, A400);
 
-$my-theme: mat.define-dark-theme((
-  color: (
-    primary: $dark-lime-primary,
-    accent: $dark-lime-accent,
-    warn:$dark-lime-warn
+$my-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $dark-lime-primary,
+      accent: $dark-lime-accent,
+      warn: $dark-lime-warn,
+    ),
   )
-));
+);
 
 @include mat.all-component-themes($my-theme);
+
+.chosen-button {
+  border-bottom: solid 2px mat.get-color-from-palette($dark-lime-primary);
+  padding: 5px;
+}
+
+.primary {
+  color: mat.get-color-from-palette($dark-lime-primary);
+}
+
+.custom-icon-button-global {
+  display: flex;
+  align-items: center;
+}
+
+.custom-icon-button-name-global {
+  padding-bottom: 1px;
+  padding-left: 0.2rem;
+}
+
+.custom-icon-button-icon-global {
+  transform: scale(0.85);
+  padding-left: 0.2rem;
+}
+
+.custom-background-color-button-global {
+  background-color: grey !important;
+}
+
+.custom-icon-button-flex-global {
+  display: flex;
+}

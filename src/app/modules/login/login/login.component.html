@@ -1,0 +1,32 @@
+<div class="login-component-center">
+  <mat-card class="responsive-login-component">
+    <mat-card-content class="content-width">
+      <div class="switch-buttons">
+        <button mat-button (click)="activeContent(ActiveContentEnum.LOGIN)">
+          <span [ngClass]="{ 'chosen-button': showContent === ActiveContentEnum.LOGIN }">Login</span>
+        </button>
+        <button mat-button (click)="activeContent(ActiveContentEnum.SIGNUP)">
+          <span [ngClass]="{ 'chosen-button': showContent === ActiveContentEnum.SIGNUP }">Sign up</span>
+        </button>
+      </div>
+      <div class="welcome-screen">
+        <div class="fit-word">
+          <div class="primary header-welcome-size">GYM LIFE</div>
+          <div class="header-welcome-size">WELCOME</div>
+        </div>
+      </div>
+
+      <div class="main-login-content">
+        <ng-container *ngIf="showContent === ActiveContentEnum.LOGIN">
+          <app-login-user></app-login-user>
+        </ng-container>
+        <ng-container *ngIf="showContent === ActiveContentEnum.SIGNUP">
+          <app-register-user></app-register-user>
+        </ng-container>
+        <ng-container *ngIf="showContent === ActiveContentEnum.PASSWORD">
+          <app-password-change-user></app-password-change-user>
+        </ng-container>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
