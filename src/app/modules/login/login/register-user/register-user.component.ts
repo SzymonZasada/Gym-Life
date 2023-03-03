@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormRegisterEnum } from '../../../../models/enums/login-module-enums/login-enums';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { validateMatchPasswords, validateStrengthPassword } from '../../../../helpers/form-validators/form-validators';
 
 @Component({
   selector: 'app-register-user',
@@ -13,12 +14,15 @@ export class RegisterUserComponent implements OnInit {
   public formRegister: FormGroup;
 
   ngOnInit() {
-    this.formRegister = new FormGroup({
-      [FormRegisterEnum.LOGIN]: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      [FormRegisterEnum.EMAIL]: new FormControl('', [Validators.required, Validators.email]),
-      [FormRegisterEnum.PASSWORD]: new FormControl('', [Validators.required]),
-      [FormRegisterEnum.REPEAT]: new FormControl('', [Validators.required]),
-    });
+    this.formRegister = new FormGroup(
+      {
+        [FormRegisterEnum.LOGIN]: new FormControl('', [Validators.required, Validators.minLength(5)]),
+        [FormRegisterEnum.EMAIL]: new FormControl('', [Validators.required, Validators.email]),
+        [FormRegisterEnum.PASSWORD]: new FormControl('', [Validators.required, validateStrengthPassword]),
+        [FormRegisterEnum.REPEAT]: new FormControl('', [Validators.required]),
+      },
+      { validators: validateMatchPasswords }
+    );
   }
 
   isFormValid() {

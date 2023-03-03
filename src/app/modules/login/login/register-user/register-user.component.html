@@ -25,20 +25,27 @@
         Please enter a valid email address
       </mat-error>
     </mat-form-field>
-
-    <mat-form-field color="primary" class="full-width">
-      <mat-label>Password</mat-label>
-      <input type="password" matInput [formControlName]="FormRegisterEnum.PASSWORD" placeholder="Password" required />
-      <mat-error *ngIf="formRegister.get(FormRegisterEnum.PASSWORD).hasError('required')">
-        Password is required
-      </mat-error>
-    </mat-form-field>
+    <div>
+      <mat-form-field color="primary" class="full-width">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput [formControlName]="FormRegisterEnum.PASSWORD" placeholder="Password" required />
+        <mat-error *ngIf="formRegister.get(FormRegisterEnum.PASSWORD).hasError('required')">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="formRegister.get(FormRegisterEnum.PASSWORD).hasError('passwordStrength')">
+          {{ formRegister.get(FormRegisterEnum.PASSWORD).errors['passwordStrength'] }}
+        </mat-error>
+      </mat-form-field>
+    </div>
 
     <mat-form-field color="primary" class="full-width">
       <mat-label>Repeat password</mat-label>
       <input type="password" matInput [formControlName]="FormRegisterEnum.REPEAT" placeholder="Password" required />
       <mat-error *ngIf="formRegister.get(FormRegisterEnum.REPEAT).hasError('required')">
         Password is required
+      </mat-error>
+      <mat-error *ngIf="formRegister.get(FormRegisterEnum.REPEAT).hasError('notEqual')">
+        Re-enter password correctly
       </mat-error>
     </mat-form-field>
   </div>

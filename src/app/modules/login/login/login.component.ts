@@ -10,7 +10,7 @@ import { ActiveContentEnum } from '../../../models/enums/login-module-enums/logi
 export class LoginComponent implements OnInit {
   public ActiveContentEnum: typeof ActiveContentEnum = ActiveContentEnum;
 
-  public showContent: ActiveContentEnum = ActiveContentEnum.SIGNUP;
+  public showContent: ActiveContentEnum = ActiveContentEnum.LOGIN;
 
   constructor(private detect: ChangeDetectorRef) {}
 

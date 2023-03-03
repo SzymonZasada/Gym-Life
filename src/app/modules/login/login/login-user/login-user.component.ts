@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormLoginEnum } from '../../../../models/enums/login-module-enums/login-enums';
+import { NavigationService } from '../../../../services/navigation/navigation.service';
+import { CoreNavigationEnum } from '../../../../models/enums/navigation-enums/core-navigation-enum';
+import { OauthService } from '../../../../helpers/auth/oauth.service';
 
 @Component({
   selector: 'app-login-user',
@@ -9,9 +12,11 @@ import { FormLoginEnum } from '../../../../models/enums/login-module-enums/login
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginUserComponent implements OnInit {
-  @Output() isForgotPassword = new EventEmitter<boolean>();
+  @Output() private isForgotPassword = new EventEmitter<boolean>();
   public FormLoginEnum: typeof FormLoginEnum = FormLoginEnum;
   public formLogin: FormGroup;
+
+  constructor(private navigationService: NavigationService, private oAuthService: OauthService) {}
 
   ngOnInit() {
     this.formLogin = new FormGroup({
@@ -32,6 +37,11 @@ export class LoginUserComponent implements OnInit {
       reqObject[key] = value.value;
     });
     console.log(reqObject);
+
+    //mock
+
+    this.oAuthService.isLogin = true;
+    this.navigationService.navigateToRoute(CoreNavigationEnum.HOME);
   }
 
   forgotPassword() {

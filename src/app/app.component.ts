@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, EventEmitter, ViewChild } from '@angular/
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { OauthService } from './helpers/auth/oauth.service';
+import { UserNavigationInterface } from './models/interfaces/navigation-interfaces/navigation-interface';
+import { CoreNavigationEnum } from './models/enums/navigation-enums/core-navigation-enum';
 
 @Component({
   selector: 'app-root',
@@ -38,11 +40,11 @@ export class AppComponent {
 
   title = 'Gym-Life';
 
-  fillerNav = [
-    { title: 'Home', navigation: '/home' },
-    { title: 'Training', navigation: '/training' },
-    { title: 'Calories', navigation: '/calories' },
-    { title: 'Calculators', navigation: '/calculators' },
-    { title: 'Settings', navigation: '/settings' },
+  fillerNav: UserNavigationInterface[] = [
+    { title: 'Home', navigation: CoreNavigationEnum.HOME },
+    { title: 'Training', navigation: CoreNavigationEnum.TRAINING },
+    { title: 'Calories', navigation: CoreNavigationEnum.CALORIES },
+    { title: 'Calculators', navigation: CoreNavigationEnum.CALCULATORS },
+    { title: 'Settings', navigation: CoreNavigationEnum.SETTINGS },
   ];
 }
