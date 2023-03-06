@@ -1,8 +1,7 @@
-import { ChangeDetectorRef, Component, EventEmitter, ViewChild } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component } from '@angular/core';
+import { Router, RoutesRecognized } from '@angular/router';
+import { filter, pairwise } from 'rxjs';
 import { OauthService } from './helpers/auth/oauth.service';
-import { UserNavigationInterface } from './models/interfaces/navigation-interfaces/navigation-interface';
 import { CoreNavigationEnum } from './models/enums/navigation-enums/core-navigation-enum';
 
 @Component({
@@ -11,40 +10,29 @@ import { CoreNavigationEnum } from './models/enums/navigation-enums/core-navigat
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @ViewChild('nav') nav: MatSidenav;
+  constructor(private router: Router, private oauth: OauthService) {
+    this.router.events
+      .pipe(
+        filter((event: RoutesRecognized) => event instanceof RoutesRecognized),
+        pairwise()
+      )
+      .subscribe((events: RoutesRecognized[]) => {
+        const previousUrl = events[0].urlAfterRedirects;
+        const currentUrl = events[1].urlAfterRedirects;
+        const isUserAuthenticated = this.oauth.isAuthenticated();
 
-  private readonly mobileQueryListener: () => void;
-  public mobileQuery: MediaQueryList;
+        if (isUserAuthenticated && currentUrl === CoreNavigationEnum.LOGIN) {
+          if (previousUrl === CoreNavigationEnum.LOGIN) {
+            this.router.navigate([CoreNavigationEnum.HOME]);
+          }
+          if (previousUrl !== CoreNavigationEnum.LOGIN) {
+            this.router.navigate([previousUrl]);
+          }
+        }
 
-  constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private mediaMatcher: MediaMatcher,
-    private oauthService: OauthService
-  ) {
-    this.mobileQuery = mediaMatcher.matchMedia('(max-width: 600px)');
-    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
+        if (!isUserAuthenticated && currentUrl !== CoreNavigationEnum.LOGIN) {
+          this.router.navigate([CoreNavigationEnum.LOGIN]);
+        }
+      });
   }
-
-  userIsLogged(): boolean {
-    return this.oauthService.isAuthenticated();
-  }
-
-  toggleSidebar(event: EventEmitter<null>): void {
-    this.nav.toggle();
-  }
-
-  isButtonActive(): boolean {
-    return this.mobileQuery.matches;
-  }
-
-  title = 'Gym-Life';
-
-  fillerNav: UserNavigationInterface[] = [
-    { title: 'Home', navigation: CoreNavigationEnum.HOME },
-    { title: 'Training', navigation: CoreNavigationEnum.TRAINING },
-    { title: 'Calories', navigation: CoreNavigationEnum.CALORIES },
-    { title: 'Calculators', navigation: CoreNavigationEnum.CALCULATORS },
-    { title: 'Settings', navigation: CoreNavigationEnum.SETTINGS },
-  ];
 }

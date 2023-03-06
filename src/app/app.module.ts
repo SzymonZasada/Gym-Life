@@ -10,9 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { LoginModule } from './modules/login/login.module';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, ToolbarComponent],
+  declarations: [AppComponent, ToolbarComponent, SidenavComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,7 +26,7 @@ import { LoginModule } from './modules/login/login.module';
     MatSidenavModule,
     LoginModule,
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

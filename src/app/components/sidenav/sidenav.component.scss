@@ -1,0 +1,31 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+.sidenav-container {
+  flex: 1;
+  height: 100%;
+}
+
+.is-mobile .sidenav-container {
+  flex: 1 0 auto;
+}
+
+.mat-drawer {
+  width: 150px;
+}
+
+.height {
+  height: 100%;
+}
