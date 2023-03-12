@@ -12,6 +12,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { LoginModule } from './modules/login/login.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
 
 @NgModule({
   declarations: [AppComponent, ToolbarComponent, SidenavComponent],
@@ -25,8 +27,16 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatListModule,
     MatSidenavModule,
     LoginModule,
+    HttpClientModule,
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthTokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

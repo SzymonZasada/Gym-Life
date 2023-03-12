@@ -4,6 +4,11 @@ import { FormLoginEnum } from '../../../../models/enums/login-module-enums/login
 import { NavigationService } from '../../../../services/navigation/navigation.service';
 import { CoreNavigationEnum } from '../../../../models/enums/navigation-enums/core-navigation-enum';
 import { OauthService } from '../../../../helpers/auth/oauth.service';
+import { AuthenticateService } from '../../../../services/login/authenticate.service';
+import { LoginDataInterface } from '../../../../models/interfaces/login-interfaces/login-interfaces';
+import { catchError, EMPTY } from 'rxjs';
+import { LocalStorageService } from '../../../../services/local-storage/local-storage.service';
+import { TokenEnums } from '../../../../models/enums/login-module-enums/token-enums';
 
 @Component({
   selector: 'app-login-user',
@@ -16,7 +21,12 @@ export class LoginUserComponent implements OnInit {
   public FormLoginEnum: typeof FormLoginEnum = FormLoginEnum;
   public formLogin: FormGroup;
 
-  constructor(private navigationService: NavigationService, private oAuthService: OauthService) {}
+  constructor(
+    private navigationService: NavigationService,
+    private oAuthService: OauthService,
+    private authenticateService: AuthenticateService,
+    private localStorageService: LocalStorageService
+  ) {}
 
   ngOnInit() {
     this.formLogin = new FormGroup({
@@ -36,12 +46,21 @@ export class LoginUserComponent implements OnInit {
     Object.entries(this.formLogin.controls).forEach(([key, value]) => {
       reqObject[key] = value.value;
     });
-    console.log(reqObject);
 
-    //mock
-
-    this.oAuthService.isLogin = true;
-    this.navigationService.navigateToRoute(CoreNavigationEnum.HOME);
+    this.authenticateService
+      .loginUser(reqObject as unknown as LoginDataInterface)
+      .pipe(
+        catchError(() => {
+          this.oAuthService.isLogin = false;
+          return EMPTY;
+        })
+      )
+      .subscribe(el => {
+        this.oAuthService.isLogin = true;
+        this.localStorageService.setDataToLocalStorage(TokenEnums.TOKEN, el.token);
+        this.localStorageService.setDataToLocalStorage(TokenEnums.REFRESH, el.refreshToken);
+        this.navigationService.navigateToRoute(CoreNavigationEnum.HOME);
+      });
   }
 
   forgotPassword() {
